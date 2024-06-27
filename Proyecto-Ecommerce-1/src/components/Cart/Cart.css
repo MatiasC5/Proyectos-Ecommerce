@@ -1,0 +1,9 @@
+input:checked ~ label ~ .cart {
+  background-color: black;
+  display: block;
+  width: 400px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
