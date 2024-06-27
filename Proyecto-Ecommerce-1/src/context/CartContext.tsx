@@ -21,16 +21,18 @@ export const CartProvider = ({ children }: childrenProps) => {
   const addToCart = (product: Product) => {
     const newCart = structuredClone(cart);
 
-    setCart([...newCart, product]);
+    setCart([...newCart, { ...product, quantity: 1 }]);
 
-    cart.includes(product) &&
+    if (cart.includes(product)) {
       setCart([
         ...newCart,
         {
+          //TODO hacer que aumente la cantidad del producto ya existente en el carrito
           ...product,
           quantity: 1,
         },
       ]);
+    }
   };
 
   return (

@@ -44,6 +44,7 @@ export const Cart = () => {
             </h3>
             <img src={product.image} alt={product.title} className="w-20" />
             <strong className="text-white">${product.price}</strong>
+            <span className="text-white">{product.quantity}</span>
             <div className="flex gap-2">
               <button
                 className="bg-sky-400 font-bold p-2 mt-4 rounded-md hover:bg-sky-300"
