@@ -19,20 +19,19 @@ export const CartProvider = ({ children }: childrenProps) => {
   const [cart, setCart] = useState<Product[]>([]);
 
   const addToCart = (product: Product) => {
-    const newCart = structuredClone(cart);
+    const productIndex = cart.findIndex((p) => p.id === product.id);
+
+    const newCart = [...cart];
+
+    newCart[productIndex] = product;
 
     setCart([...newCart, { ...product, quantity: 1 }]);
 
-    if (cart.includes(product)) {
-      setCart([
-        ...newCart,
-        {
-          //TODO hacer que aumente la cantidad del producto ya existente en el carrito
-          ...product,
-          quantity: 1,
-        },
-      ]);
-    }
+    cart.map((p) => {
+      if (p.id === product.id) {
+        setCart([{ ...product, quantity: product.quantity + 1 }]);
+      }
+    });
   };
 
   return (
