@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Product } from "../helper/products";
 
 interface FiltersContextProps {
@@ -13,6 +13,10 @@ interface Filters {
 
 export const FiltersContext = createContext({
   filters: {} as Filters,
+  products: [] as Product[],
+  setProducts: (product: Product[]) => {
+    product;
+  },
   setFilters: (filters: Filters) => {
     filters;
   },
@@ -37,6 +41,8 @@ export const FiltersProvider = ({ children }: FiltersContextProps) => {
     price: 0,
   });
 
+  const [products, setProducts] = useState<Product[]>([]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({
       ...filters,
@@ -58,6 +64,21 @@ export const FiltersProvider = ({ children }: FiltersContextProps) => {
     });
   };
 
+  const getProdutcs = async () => {
+    try {
+      const productList = await fetch("https://fakestoreapi.com/products")
+        .then((res) => res.json())
+        .then((data) => setProducts(data));
+      return productList;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getProdutcs();
+  }, []);
+
   const filterProduct = (products: Product[]) => {
     return products.filter((product) => {
       if (
@@ -73,17 +94,20 @@ export const FiltersProvider = ({ children }: FiltersContextProps) => {
         );
       }
     });
+    return products;
   };
 
   return (
     <FiltersContext.Provider
       value={{
         filters,
+        products,
         handleInputChange,
         handleCategory,
         handlePrice,
         filterProduct,
         setFilters,
+        setProducts,
       }}
     >
       {children}

@@ -35,34 +35,29 @@ export const Cart = () => {
       </label>
       <section className="cart hidden overflow-y-scroll ">
         {cart.map((product) => {
-          const productInCart = cart.find((prod) => prod.id === product.id);
-
-          return productInCart ? (
-            <div
-              className=" flex flex-col justify-center items-center mt-2 py-4 "
-              key={product.id}
-            >
-              <h3 className="text-white truncate w-40 p-2 text-xl">
-                {product.title}
-              </h3>
-              <img src={product.image} alt={product.title} className="w-20" />
-              <strong className="text-white">${product.price}</strong>
-              <span className="text-white">{product.quantity}</span>
-              <div className="flex gap-2">
-                <button
-                  className="bg-sky-400 font-bold p-2 mt-4 rounded-md hover:bg-sky-300"
-                  onClick={() => addToCart(product)}
-                >
-                  {" "}
-                  <AddToCartIcon />
-                </button>
-                <button className="bg-red-500 font-bold p-2 mt-4 rounded-md hover:bg-red-300">
-                  <CartRemove />
-                </button>
-              </div>
-            </div>
-          ) : (
-            ""
+          return (
+            <ul key={product.id}>
+              <li className=" flex flex-col justify-center items-center mt-2 py-4 ">
+                <h3 className="text-white truncate w-40 p-2 text-xl">
+                  {product.title}
+                </h3>
+                <img src={product.image} alt={product.title} className="w-20" />
+                <strong className="text-white">${product.price}</strong>
+                <span className="text-white">{product.quantity}</span>
+                <div className="flex gap-2">
+                  <button
+                    className="bg-sky-400 font-bold p-2 mt-4 rounded-md hover:bg-sky-300"
+                    onClick={() => addToCart(product)}
+                  >
+                    {" "}
+                    <AddToCartIcon />
+                  </button>
+                  <button className="bg-red-500 font-bold p-2 mt-4 rounded-md hover:bg-red-300">
+                    <CartRemove />
+                  </button>
+                </div>
+              </li>
+            </ul>
           );
         })}{" "}
       </section>
