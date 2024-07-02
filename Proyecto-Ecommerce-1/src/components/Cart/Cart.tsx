@@ -8,11 +8,11 @@ import { useCart } from "../../hooks/useCart";
 import "./Cart.css";
 
 export const Cart = () => {
-  const [cartClicked, setCartClicked] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const { cart, addToCart } = useCart();
 
-  function checkCartClicked() {
-    setCartClicked(!cartClicked);
+  function toggleCart() {
+    setIsCartOpen(!isCartOpen);
   }
 
   return (
@@ -23,12 +23,10 @@ export const Cart = () => {
         htmlFor="check"
       >
         <div
-          className={
-            cartClicked
-              ? "border border-white rounded-full p-2 "
-              : "border border-black rounded-full p-2 "
-          }
-          onClick={checkCartClicked}
+          className={`border ${
+            isCartOpen ? "border-white" : " border-black"
+          } rounded-full p-2 `}
+          onClick={toggleCart}
         >
           <CartIcon />
         </div>
